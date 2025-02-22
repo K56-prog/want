@@ -27,7 +27,7 @@ env.read_env(os.path.join(BASE_DIR, ".env"))
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("SECRET_KEY", "fallback-secret-key")
+SECRET_KEY = 'django-insecure-(m@+v+cm&wub1ml3crx=18vt%ys2q)os1o2d4@7dp!phisr98h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -82,11 +82,13 @@ WSGI_APPLICATION = 'math_random.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-default_dburl = "sqlite:///" + str(BASE_DIR / "db.sqlite3")
-
 DATABASES = {
-    "default": config("DATABASE_URL", default=default_dburl, cast=dburl),
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
+
 
 
 
