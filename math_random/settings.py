@@ -83,8 +83,10 @@ WSGI_APPLICATION = 'math_random.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+default_dburl = "sqlite:///" + str(BASE_DIR / "db.sqlite3")
+
 DATABASES = {
-    'default': dj_database_url.config(default=os.getenv("DATABASE_URL"))
+    "default": config("DATABASE_URL", default=default_dburl, cast=dburl),
 }
 
 
