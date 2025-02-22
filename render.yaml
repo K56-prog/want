@@ -11,9 +11,9 @@ services:
     env: python
     region: singapore
     buildCommand: './build.sh'
-    startCommand: 'gunicorn mysite.wsgi:application'
+    startCommand: 'gunicorn math_random.wsgi:application'
     plan: free
-    branch: main
+    branch: master
     healthCheckPath: /
     envVars:
       - key: DATABASE_URL
