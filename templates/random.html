@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">やりたいことガシャ</h1>
+      <p class="lead">これからやることをゲットしよう！</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    {{ error }}
+  </div>
+</div>
+<p></p>
+<div class="container">
+    <a href="{% url 'result' %}" class="btn btn-secondary mb-2" role="button" aria-disabled="true">ガシャる</a>
+</div>
+
+<div class="container">
+  <a href="{% url 'list' %}" class="btn btn-secondary mb-2" role="button" aria-disabled="true">HOME</a>
+</div>
+{% endblock content %}

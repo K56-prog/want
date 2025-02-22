@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">WantToDo List</h1>
+      <p class="lead">やりたいことをランダムに選んで、毎日にワクワク感をもたらしましょう。</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% for item in object_list %}
+    <div class="alert alert-primary" role="alert">
+        <h2>{{ item.field }}: {{ item.title }}</h2>
+        <a href="{% url 'update' item.pk %}" class="btn btn-info" role="button" aria-disabled="true">編集</a>
+        <a href="{% url 'delete' item.pk %}"class="btn btn-success" role="button" aria-disabled="true">削除</a>
+        <a href="{% url 'detail' item.pk %}" class="btn btn-primary" role="button" aria-disabled="true">詳細</a>
+    </div>
+    
+    {% endfor %}
+    <p>
+        <a href="{% url 'create' %}" class="btn btn-warning mb-2" role="button" aria-disabled="true">新規作成</a>
+    </p>
+    <center>
+        <a href="{% url 'random' %}" class="btn btn-danger mb-2 btn-lg" role="button" aria-disabled="true">ガシャ</a>
+    </center>
+</div>
+{% endblock content %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<div class="alert alert-dark" role="alert">
+ガシャ結果
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="alert alert-success" role="alert">
+    {{ object.field }}
+</div>
+<div class="alert alert-success" role="alert">
+    {{ object.title }}
+</div>
+<div class="container">
+    <a href="{% url 'list' %}" class="btn btn-secondary mb-2" role="button" aria-disabled="true">HOME</a>
+</div>
+{% endblock content %}
