@@ -2,7 +2,7 @@ databases:
   - name: django_render_db
     region: singapore
     plan: free
-    databaseName: django_render_db
+    databaseName: mydb_t65p
     user: mydb_t65p_user
 
 services:
