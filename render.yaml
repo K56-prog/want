@@ -3,7 +3,7 @@ databases:
     region: singapore
     plan: free
     databaseName: django_render_db
-    user: django_user
+    user: mydb_t65p_user
 
 services:
   - type: web
