@@ -33,7 +33,7 @@ env.read_env(os.path.join(BASE_DIR, ".env"))
 SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['want-to-do.onrender.com']
 
@@ -85,8 +85,10 @@ WSGI_APPLICATION = 'math_random.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+default_dburl = "sqlite:///" + str(BASE_DIR / "db.sqlite3")
+
 DATABASES = {
-    "default": dj_database_url.config(default=os.getenv("DATABASE_URL"))
+    "default": config("DATABASE_URL", default=default_dburl, cast=dburl),
 }
 
 
