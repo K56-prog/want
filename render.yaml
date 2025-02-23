@@ -11,7 +11,8 @@ services:
     env: python
     region: singapore
     buildCommand: './build.sh'
-    startCommand: 'gunicorn --bind 0.0.0.0:$PORT math_random.wsgi:application'
+    startCommand: 'gunicorn math_random.wsgi:application'
+
     plan: free
     branch: master
     healthCheckPath: /
