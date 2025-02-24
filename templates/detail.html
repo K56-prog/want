@@ -2,22 +2,41 @@
 
 {% block header %}
 <div class="alert alert-dark" role="alert">
-detail
+    <center>
+        <h2>詳細</h2>
+    </center>
 </div>
 {% endblock %}
 
 {% block content %}
-<div class="alert alert-success" role="alert">
-    {{ object.title }}
-</div>
-<div class="alert alert-success" role="alert">
-    {{ object.field }}
-</div>
-<div class="alert alert-success" role="alert">
-    {{ object.memo }}
-</div>
-
+{% if user.is_authenticated %}
+{% if object.username == user.username %}
 <div class="container">
-    <a href="{% url 'list' %}" class="btn btn-secondary mb-2" role="button" aria-disabled="true">HOME</a>
+    <h3>タイトル</h3>
+    <div class="alert alert-success" role="alert">
+        {{ object.title }}
+    </div>
+    <h3>分野</h3>
+    <div class="alert alert-success" role="alert">
+        {{ object.field }}
+    </div>
+    <h3>メモ</h3>
+    <div class="alert alert-success" role="alert">
+        {{ object.memo }}
+    </div>
 </div>
+{% else %}
+<p>他ユーザーの詳細画面にはアクセスできません</p>
+{% endif %}
+
+<a href="{% url 'list' %}" class="btn btn-secondary mb-2" role="button" aria-disabled="true">リストへ戻る</a>
+
+{% else %}
+<div class="alert alert-danger" role="alert">
+    <center>リストの詳細を見るにはログインしてください。</center>
+    <center>
+        <a href="{% url 'login' %}">ログイン</a>
+    </center>
+</div>
+{% endif %}
 {% endblock content %}

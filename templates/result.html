@@ -1,19 +1,38 @@
 {% extends 'base.html' %}
 
 {% block header %}
-<div class="alert alert-dark" role="alert">
-ガシャ結果
+<div class="alert alert-primary" role="alert">
+    <h2>
+        <center>ガシャ結果</center>
+    </h2>
 </div>
 {% endblock %}
 
 {% block content %}
-<div class="alert alert-success" role="alert">
-    {{ object.field }}
-</div>
-<div class="alert alert-success" role="alert">
-    {{ object.title }}
-</div>
+{% if user.is_authenticated %}
 <div class="container">
-    <a href="{% url 'list' %}" class="btn btn-secondary mb-2" role="button" aria-disabled="true">HOME</a>
+    <h3>分野</h3>
+    <div class="alert alert-success" role="alert">
+        <h4>{{ object.field }}</h4>
+    </div>
+    <h3>タイトル</h3>
+    <div class="alert alert-success" role="alert">
+        <h4>{{ object.title }}</h4>
+    </div>
+    <p>やったね！早速ログアウトして、{{ object.title }}を楽しもう！</p>
 </div>
+    <div class="container">
+        <a href="{% url 'logout' %}" class="btn btn-secondary mb-2" role="button" aria-disabled="true">ログアウト</a>
+        <a href="{% url 'list' %}" class="btn btn-secondary mb-2" role="button" aria-disabled="true">リスト一覧へ</a>
+
+    </div>
+
+{% else %}
+<div class="alert alert-danger" role="alert">
+    <center>ガシャを引くにはログインしてください。</center>
+    <center>
+        <a href="{% url 'login' %}">ログイン</a>
+    </center>
+</div>
+{% endif %}
 {% endblock content %}

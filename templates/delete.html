@@ -1,11 +1,40 @@
 {% extends 'base.html' %}
 
-{% block content %}
-<form action="" method="POST">{% csrf_token %}
-<input type="submit" value="delete">
-</form>
-
-<div class="container">
-    <a href="{% url 'list' %}" class="btn btn-secondary mb-2" role="button" aria-disabled="true">HOME</a>
+{% block header %}
+<div class="alert alert-danger" role="alert">
+    <center>
+        <h2>削除</h2>
+    </center>
 </div>
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+{% if object.username == user.username %}
+<div class="container">
+
+    <h5>{{ object.title }}を削除しますか？
+        
+    </h5>
+
+    <form action="" method="POST">{% csrf_token %}
+        <input type="submit" value="削除" class="btn btn-danger mb-2">
+    </form>
+    <a href="{% url 'list' %}" class="btn btn-secondary mb-2" role="button" aria-disabled="true">リストへ戻る</a>
+
+</div>
+{% else %}
+<p>他ユーザーの削除画面にはアクセスできません</p>
+    <a href="{% url 'list' %}" class="btn btn-secondary mb-2" role="button" aria-disabled="true">リストへ戻る</a>
+{% endif %}
+
+{% else %}
+<div class="alert alert-danger" role="alert">
+    <center>この項目を削除するにはログインしてください。</center>
+    <center>
+        <a href="{% url 'login' %}">ログイン</a>
+    </center>
+</div>
+{% endif %}
+
 {% endblock content %}

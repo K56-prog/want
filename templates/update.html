@@ -1,14 +1,39 @@
 {% extends 'base.html' %}
 
-{% block content %}
-<form method="POST" enctype="multipart/form-data">{% csrf_token %}
-    <p>title:<input type="text" name="title"></p>
-    <p>field:<input type="text" name="field"></p>
-    <p>memo:<input type="text" name="memo"></p>
-<input type="submit" value="update">
-</form>
-
-<div class="container">
-    <a href="{% url 'list' %}" class="btn btn-secondary mb-2" role="button" aria-disabled="true">HOME</a>
+{% block header %}
+<div class="alert alert-success" role="alert">
+    <center>
+        <h2>編集</h2>
+    </center>
 </div>
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+{% if object.username == user.username %}
+<div class="container">
+    <form action="" method="POST">{% csrf_token %}
+    <h3>タイトル</h3>
+    <div class="alert alert-secondary" role="alert">{{ form.title }}</div>
+    <h3>分野</h3>
+    <div class="alert alert-secondary" role="alert">{{ form.field }}</div>
+    <h3>メモ</h3>
+    <div class="alert alert-secondary" role="alert">{{ form.memo }}</div>
+    <input type="hidden" name="username" value="{{ user.username }}">
+
+    <input type="submit" value="更新" class="btn btn-success mb-2">
+    </form>
+</div>
+{% else %}
+<p>他ユーザーの編集画面にはアクセスできません。</p>
+{% endif %}
+    <a href="{% url 'list' %}" class="btn btn-secondary mb-2" role="button" aria-disabled="true">リストへ戻る</a>
+{% else %}
+<div class="alert alert-danger" role="alert">
+    <center>リストを編集するにはログインしてください。</center>
+    <center>
+        <a href="{% url 'login' %}">ログイン</a>
+    </center>
+</div>
+{% endif %}
 {% endblock content %}

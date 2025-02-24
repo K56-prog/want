@@ -6,6 +6,7 @@ class WantModel(models.Model):
     field = models.CharField(max_length=50)
     title = models.CharField(max_length=100)
     memo = models.TextField() 
+    username = models.CharField(max_length=50)
 
     
     

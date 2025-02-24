@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
+{% block custumcss %}
+<link href="{% static 'style.css' %}" rel="stylesheet">
+{% endblock custumcss %}
 {% block content %}
     <body class="d-flex align-items-center py-4 bg-body-tertiary">
            

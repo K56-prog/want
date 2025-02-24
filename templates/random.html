@@ -5,22 +5,31 @@
     <div class="container">
       <h1 class="display-4">やりたいことガシャ</h1>
       <p class="lead">これからやることをゲットしよう！</p>
+      <p>(あなたが追加したやりたい事の中からランダムに排出されます)。</p>
     </div>
 </div>
 {% endblock %}
 
 {% block content %}
+{% if user.is_authenticated %}
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
     {{ error }}
+    {{ error2}}
   </div>
 </div>
 <p></p>
 <div class="container">
-    <a href="{% url 'result' %}" class="btn btn-secondary mb-2" role="button" aria-disabled="true">ガシャる</a>
-</div>
+    <a href="{% url 'result' %}" class="btn btn-danger mb-2" role="button" aria-disabled="true">ガシャる</a>
 
-<div class="container">
   <a href="{% url 'list' %}" class="btn btn-secondary mb-2" role="button" aria-disabled="true">HOME</a>
 </div>
+{% else %}
+<div class="alert alert-danger" role="alert">
+    <center>ガシャを引くにはログインしてください。</center>
+    <center>
+        <a href="{% url 'login' %}">ログイン</a>
+    </center>
+</div>
+{% endif %}
 {% endblock content %}

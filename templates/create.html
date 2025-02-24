@@ -1,12 +1,38 @@
 {% extends 'base.html' %}
 
+{% block header %}
+<div class="alert alert-primary" role="alert">
+    <center>
+        <h2>リストを追加</h2>
+    </center>
+</div>
+{% endblock %}
+
 {% block content %}
-<form action="" method="POST">{% csrf_token %}
-{{ form.as_p }}
-<input type="submit" value="create">
-</form>
+{% if user.is_authenticated %}
+<div class="container">
+    <form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+        <h3>タイトル</h3>
+        <div class="alert alert-secondary" role="alert">{{ form.title }}</div>
+        <h3>分野</h3>
+        <div class="alert alert-secondary" role="alert">{{ form.field }}</div>
+        <h3>メモ</h3>
+        <div class="alert alert-secondary" role="alert">{{ form.memo }}</div>
+        <input type="hidden" name="username" value="{{ user.username }}">
+        <input type="submit" value="作成" class="btn btn-primary mb-2">
+    </form>
+</div>
 
 <div class="container">
-    <a href="{% url 'list' %}" class="btn btn-secondary mb-2" role="button" aria-disabled="true">HOME</a>
+    <a href="{% url 'list' %}" class="btn btn-secondary mb-2" role="button" aria-disabled="true">リストへ戻る</a>
 </div>
+
+{% else %}
+<div class="alert alert-danger" role="alert">
+    <center>リストを追加するにはログインしてください。</center>
+    <center>
+        <a href="{% url 'login' %}">ログイン</a>
+    </center>
+</div>
+{% endif %}
 {% endblock content %}  

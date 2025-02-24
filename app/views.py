@@ -17,7 +17,7 @@ def signupfunc(request):
         password =request.POST['password']
         try:
             user = User.objects.create_user(username, "", password)
-            return render(request, 'signup.html', {'some':100})
+            return redirect('login')
         except IntegrityError:
             return render(request, 'signup.html', {'error':'このユーザーは既に登録されています。'})
     return render(request, 'signup.html')
@@ -42,14 +42,15 @@ def logoutfunc(request):
     logout(request)
     return redirect('login')
 
-class WantList(ListView):
-    template_name = 'list.html'
-    model = WantModel
+def listfunc(request):
+    object_list = WantModel.objects.all()
+    user_objects = [v for v in object_list if v.username == request.user.get_username()]
+    return render(request, 'list.html',{'user_objects':user_objects})
 
 class WantUpdate(UpdateView):
     template_name = 'update.html'
     model = WantModel
-    fields = {'title', 'field', 'memo'}
+    fields = {'title', 'field', 'memo', 'username'}
     success_url = reverse_lazy('list')
 
 class WantDetail(DetailView):
@@ -59,7 +60,7 @@ class WantDetail(DetailView):
 class WantCreate(CreateView):
     template_name = 'create.html'
     model = WantModel
-    fields = {'title', 'field', 'memo'}
+    fields = {'title', 'field', 'memo', 'username'}
     success_url = reverse_lazy('list')
 
 class WantDelete(DeleteView):
@@ -68,9 +69,11 @@ class WantDelete(DeleteView):
     success_url = reverse_lazy('list')
 
 def resultfunc(request):
+    user_objects = [v for v in WantModel.objects.all() if v.username == request.user.get_username()]
+
     try:
-        pk = random.randint(1, WantModel.objects.count())
-        object = WantModel.objects.get(pk=pk)
+        object_num = random.randint(1, len(user_objects))
+        object = user_objects[object_num - 1]
         return render(request, 'result.html', {'object':object})
     except:
         return render(request, 'random.html', {'error':'もう一回「ガシャる」ボタンを押してください。'})
